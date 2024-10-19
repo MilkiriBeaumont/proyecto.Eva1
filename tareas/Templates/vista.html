@@ -1,0 +1,48 @@
+<!-- templates/tareas/listar.html -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Lista de Tareas</title>
+</head>
+<body >
+    <div style="background-color: rgb(180, 178, 178)"  class="container mt-4">
+        <h1>Lista de Tareas</h1>
+        
+        <a href="{% url 'crear_tarea' %}" class="btn btn-primary mb-3">Crear Tarea</a>
+        
+        <table  style="background-color: gray" class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tarea in tareas %}
+                <tr>
+                    <td>{{ tarea.id }}</td>  <!-- Muestra el ID de la tarea -->
+                    <td>{{ tarea.titulo }}</td>  <!-- Muestra el título de la tarea -->
+                    <td>{{ tarea.descripcion }}</td>  <!-- Muestra la descripción de la tarea -->
+                    <td><a  href="{% url 'editar_tarea' tarea.id %}"  style="margin-bottom: 15px;"  class="btn btn-warning" type="button" >Editar</a>
+                        <form  action="{% url 'eliminar_tarea' tarea.id %}" method="post">
+                            {% csrf_token %}
+                            <button  type="submit" class="btn btn-danger">Eliminar</button>
+        
+                          </form>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
